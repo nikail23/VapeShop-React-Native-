@@ -94,7 +94,7 @@ const ShmotOverviewScreen = (props) => {
       data={shmot}
       renderItem={(itemData) => (
         <ShmotItem
-          title={itemData.item.title}
+          name={itemData.item.name}
           image={itemData.item.imageUrls[0]}
           description={itemData.item.description}
           price={itemData.item.price}

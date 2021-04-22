@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Picker } from "@react-native-picker/picker";
 import Slider from "@react-native-community/slider";
 import HeaderButton from "../components/UI/HeaderButton";
-import { TYPES, COLORS } from "../data/dummy-data";
 import * as shmotActions from "../store/actions/shmot";
 import * as shmotSelector from "../store/selectors/shmot";
 
@@ -16,10 +15,8 @@ const FiltersScreen = (props) => {
 
   const [price, setPrice] = useState(+filters.price);
   const [minPrice, setMinPrice] = useState(filters.minPrice);
-  const [maxPrice, setMaxPrice] = useState(150);
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [imagesCount, setImagesCount] = useState(filters.imagesCount);
-  const [shmotType, setShmotType] = useState(filters.shmotType);
-  const [color, setColor] = useState(filters.color);
   const [descriptionSize, setDescriptionSize] = useState(
     filters.descriptionSize
   );
@@ -32,8 +29,6 @@ const FiltersScreen = (props) => {
         minPrice,
         price,
         imagesCount,
-        shmotType,
-        color,
         descriptionSize,
       })
     );
@@ -41,8 +36,6 @@ const FiltersScreen = (props) => {
     minPrice,
     price,
     imagesCount,
-    shmotType,
-    color,
     descriptionSize,
     dispatch,
   ]);
@@ -118,42 +111,6 @@ const FiltersScreen = (props) => {
       </Text>
 
       <View style={{ width: "80%" }}>
-        <Text
-          style={{
-            ...styles.label,
-            fontSize: settings.sizeOfFont,
-            color: settings.mainColor,
-          }}
-        >
-          {settings.language === "eng" ? "Type" : "Тип"}
-        </Text>
-        <Picker
-          selectedValue={shmotType}
-          onValueChange={(value) => setShmotType(value)}
-        >
-          <Picker.Item label="all" value="all" key={0} />
-          {TYPES.map((type, index) => (
-            <Picker.Item label={type} value={type} key={index + 1} />
-          ))}
-        </Picker>
-        <Text
-          style={{
-            ...styles.label,
-            fontSize: settings.sizeOfFont,
-            color: settings.mainColor,
-          }}
-        >
-          {settings.language === "eng" ? "Color" : "Цвет"}
-        </Text>
-        <Picker
-          selectedValue={color}
-          onValueChange={(value) => setColor(value)}
-        >
-          <Picker.Item label="all" value="all" key={0} />
-          {COLORS.map((color, index) => (
-            <Picker.Item label={color} value={color} key={index + 1} />
-          ))}
-        </Picker>
         <Text
           style={{
             ...styles.label,

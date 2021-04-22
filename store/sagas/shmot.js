@@ -74,21 +74,20 @@ function* FetchShmotAsync() {
         throw new Error("Something went wrong if fetchProducts!");
       }
       const resData = await response.json();
-      console.log(resData);
       const loadedShmot = [];
       for (const key in resData) {
         loadedShmot.push(
           new Shmot(
             key,
-            resData[key].ownerId,
+            resData[key].OwnerId,
             resData[key].Name,
             resData[key].Description,
-            resData[key].imageUrls,
-            resData[key].videoUrl,
+            resData[key].ImageUrls,
+            resData[key].VideoUrl,
             resData[key].Cost,
             resData[key].Weight,
             resData[key].BatteryPower,
-            resData[key].selectedLocation
+            resData[key].SelectedLocation
           )
         );
       }

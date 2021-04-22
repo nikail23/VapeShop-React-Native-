@@ -121,12 +121,6 @@ export default (state = initialState, action) => {
         if (shmot.price < filters.minPrice || shmot.price > filters.price) {
           return false;
         }
-        if (shmot.type !== filters.shmotType && filters.shmotType !== "all") {
-          return false;
-        }
-        if (shmot.color !== filters.color && filters.color !== "all") {
-          return false;
-        }
         if (shmot.imageUrls.length < filters.imagesCount) {
           return false;
         }

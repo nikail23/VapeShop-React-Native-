@@ -19,11 +19,12 @@ export const fetchShmot = () => {
 };
 
 export const fetchShmotSucceeded = (shmot, userShmot) => {
-  return {
+  const result = {
     type: FETCH_SHMOT_SUCCEEDED,
     shmot,
     userShmot,
   };
+  return result;
 };
 
 export const deleteShmot = (shmotId) => {

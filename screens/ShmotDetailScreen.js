@@ -71,20 +71,6 @@ const ShmotDetailScreen = (props) => {
             onPress={showMapHandler}
           />
         </View>
-        <View style={styles.infoContainer}>
-          <Text
-            style={{ fontSize: settings.sizeOfFont, color: settings.mainColor }}
-          >
-            {settings.language === "eng" ? "Type" : "Тип"} -{" "}
-            {selectedShmot.type}
-          </Text>
-          <Text
-            style={{ fontSize: settings.sizeOfFont, color: settings.mainColor }}
-          >
-            {settings.language === "eng" ? "Color" : "Цвет"} -{" "}
-            {selectedShmot.color}
-          </Text>
-        </View>
 
         <Text
           style={{
