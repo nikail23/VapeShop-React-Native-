@@ -18,7 +18,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import HeaderButton from "../components/UI/HeaderButton";
 import LocationPicker from "../components/UI/LocationPicker";
-import { TYPES, COLORS } from "../data/dummy-data";
 import * as shmotActions from "../store/actions/shmot";
 import * as shmotSelector from "../store/selectors/shmot";
 
@@ -33,6 +32,7 @@ const EditProductScreen = (props) => {
     : null;
 
   const [name, setName] = useState(editedShmot ? editedShmot.name : "");
+
   const [imageUrls, setImageUrls] = useState(
     editedShmot ? editedShmot.imageUrls : []
   );
@@ -42,12 +42,14 @@ const EditProductScreen = (props) => {
   const [selectedLocation, setSelectedLocation] = useState(
     editedShmot ? editedShmot.location : ""
   );
-  const [price, setPrice] = useState(editedShmot ? editedShmot.price : "");
+  const [price, setPrice] = useState(editedShmot ? editedShmot.price.toString() : "");
   const [description, setDescription] = useState(
     editedShmot ? editedShmot.description : ""
   );
-  const [weight, setWeight] = useState(editedShmot ? editedShmot.weight : "");
-  const [battery, setBattery] = useState(editedShmot ? editedShmot.battery : "");
+  const [weight, setWeight] = useState(editedShmot ? editedShmot.weight.toString() : "");
+  const [battery, setBattery] = useState(editedShmot ? editedShmot.battery.toString() : "");
+
+  console.log(editedShmot);
 
   const locationPickedHandler = useCallback((location) => {
     setSelectedLocation(location);
@@ -77,8 +79,8 @@ const EditProductScreen = (props) => {
             selectedLocation,
             +price,
             description,
-            weight,
-            battery
+            +weight,
+            +battery
           )
         );
       }
@@ -212,6 +214,25 @@ const EditProductScreen = (props) => {
             }}
             value={videoUrl}
             onChangeText={(value) => setVideoUrl(value)}
+            autoCapitalize="none"
+          />
+          <Text
+            style={{
+              ...styles.label,
+              fontSize: settings.sizeOfFont,
+              color: settings.mainColor,
+            }}
+          >
+            {settings.language === "eng" ? "Price" : "Цена"}
+          </Text>
+          <TextInput
+            style={{
+              ...styles.input,
+              fontSize: settings.sizeOfFont - 2,
+              color: settings.mainColor,
+            }}
+            value={price}
+            onChangeText={(value) => setPrice(value)}
             autoCapitalize="none"
           />
           <Text

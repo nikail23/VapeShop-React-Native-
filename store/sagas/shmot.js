@@ -107,7 +107,7 @@ function* FetchShmotAsync() {
 }
 
 function* CreateShmotAsync({
-  title,
+  name,
   description,
   imageUrls,
   videoUrl,
@@ -131,15 +131,15 @@ function* CreateShmotAsync({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            title,
-            imageUrls: loadedImageUrls,
-            videoUrl,
-            selectedLocation,
-            price,
-            description,
-            ownerId: userId,
-            weight,
-            battery
+            Name: name,
+            ImageUrls: loadedImageUrls,
+            VideoUrl: videoUrl,
+            SelectedLocation: selectedLocation,
+            Cost: price,
+            Description: description,
+            OwnerId: userId,
+            Weight: weight,
+            BatteryPower: battery
           }),
         }
       );
@@ -153,7 +153,7 @@ function* CreateShmotAsync({
     yield put(
       createShmotSucceeded(
         response.name,
-        title,
+        name,
         loadedImageUrls,
         videoUrl,
         selectedLocation,
@@ -172,7 +172,7 @@ function* CreateShmotAsync({
 
 function* UpdateShmotAsync({
   id,
-  title,
+  name,
   imageUrls,
   videoUrl,
   selectedLocation,
@@ -195,14 +195,14 @@ function* UpdateShmotAsync({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            title,
-            description,
-            imageUrls,
-            videoUrl,
-            price,
-            weight,
-            battery,
-            selectedLocation,
+            Name: name,
+            Description: description,
+            ImageUrls: imageUrls,
+            VideoUrl: videoUrl,
+            Cost: price,
+            Weight: weight,
+            BatteryPower: battery,
+            SelectedLocation: selectedLocation,
           }),
         }
       );
@@ -213,7 +213,7 @@ function* UpdateShmotAsync({
 
     yield put(
       updateShmotSucceeded(id, {
-        title,
+        name,
         description,
         imageUrls,
         videoUrl,

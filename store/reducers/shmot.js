@@ -122,6 +122,7 @@ export default (state = initialState, action) => {
           return false;
         }
         if (shmot.imageUrls.length < filters.imagesCount) {
+          console.log(shmot.imageUrls);
           return false;
         }
         if (shmot.description.length < 20 && filters.descriptionSize) {
