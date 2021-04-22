@@ -1,14 +1,14 @@
 const vars = {
   googleApiKey: "AIzaSyAmprsAHA7VSE6v6puQ-v3t3JuD3Pj3Ns0",
-  firebaseApiKey: "AIzaSyBlbgHWshNk-RBt5xAo1Ea6EcvoSDx2HYs",
+  firebaseApiKey: "AIzaSyDKbN97wdu8iloBCjsebkNNZyzWcqJvizM",
   firebaseConfig: {
-    apiKey: "AIzaSyBlbgHWshNk-RBt5xAo1Ea6EcvoSDx2HYs",
-    authDomain: "rn-shmot-app-aafab.firebaseapp.com",
-    databaseURL: "https://rn-shmot-app-aafab-default-rtdb.firebaseio.com",
-    projectId: "rn-shmot-app-aafab",
-    storageBucket: "rn-shmot-app-aafab.appspot.com",
-    messagingSenderId: "150599773285",
-    appId: "1:150599773285:android:8bed0613bb3f5724efea8c",
+    apiKey: "AIzaSyDKbN97wdu8iloBCjsebkNNZyzWcqJvizM",
+    authDomain: "vapeshop-3a628.firebaseapp.com",
+    databaseURL: "https://vapeshop-3a628-default-rtdb.firebaseio.com",
+    projectId: "vapeshop-3a628",
+    storageBucket: "vapeshop-3a628.appspot.com",
+    messagingSenderId: "797916216300",
+    appId: "1:797916216300:android:856333070115ad44e19ec9",
   }
 };
 

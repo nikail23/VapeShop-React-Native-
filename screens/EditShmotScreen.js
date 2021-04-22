@@ -32,17 +32,13 @@ const EditProductScreen = (props) => {
     ? props.route.params.pickedLocation
     : null;
 
-  const [title, setTitle] = useState(editedShmot ? editedShmot.title : "");
+  const [name, setName] = useState(editedShmot ? editedShmot.name : "");
   const [imageUrls, setImageUrls] = useState(
     editedShmot ? editedShmot.imageUrls : []
   );
   const [videoUrl, setVideoUrl] = useState(
     editedShmot ? editedShmot.videoUrl : ""
   );
-  const [shmotType, setShmotType] = useState(
-    editedShmot ? editedShmot.type : "hoodie"
-  );
-  const [color, setColor] = useState(editedShmot ? editedShmot.color : "black");
   const [selectedLocation, setSelectedLocation] = useState(
     editedShmot ? editedShmot.location : ""
   );
@@ -50,6 +46,8 @@ const EditProductScreen = (props) => {
   const [description, setDescription] = useState(
     editedShmot ? editedShmot.description : ""
   );
+  const [weight, setWeight] = useState(editedShmot ? editedShmot.weight : "");
+  const [battery, setBattery] = useState(editedShmot ? editedShmot.battery : "");
 
   const locationPickedHandler = useCallback((location) => {
     setSelectedLocation(location);
@@ -61,26 +59,26 @@ const EditProductScreen = (props) => {
         await dispatch(
           shmotActions.updateShmot(
             shmotId,
-            title,
+            name,
             imageUrls,
             videoUrl,
-            shmotType,
-            color,
             selectedLocation,
-            description
+            description,
+            weight,
+            battery
           )
         );
       } else {
         await dispatch(
           shmotActions.createShmot(
-            title,
+            name,
             imageUrls,
             videoUrl,
-            shmotType,
-            color,
             selectedLocation,
             +price,
-            description
+            description,
+            weight,
+            battery
           )
         );
       }
@@ -164,8 +162,8 @@ const EditProductScreen = (props) => {
               fontSize: settings.sizeOfFont - 2,
               color: settings.mainColor,
             }}
-            value={title}
-            onChangeText={(value) => setTitle(value)}
+            value={name}
+            onChangeText={(value) => setName(value)}
             autoCapitalize="none"
           />
 
@@ -223,16 +221,18 @@ const EditProductScreen = (props) => {
               color: settings.mainColor,
             }}
           >
-            {settings.language === "eng" ? "Type" : "Тип"}
+            {settings.language === "eng" ? "Weight" : "Вес"}
           </Text>
-          <Picker
-            selectedValue={shmotType}
-            onValueChange={(value) => setShmotType(value)}
-          >
-            {TYPES.map((type, index) => (
-              <Picker.Item label={type} value={type} key={index} />
-            ))}
-          </Picker>
+          <TextInput
+            style={{
+              ...styles.input,
+              fontSize: settings.sizeOfFont - 2,
+              color: settings.mainColor,
+            }}
+            value={weight}
+            onChangeText={(value) => setWeight(value)}
+            autoCapitalize="none"
+          />
           <Text
             style={{
               ...styles.label,
@@ -240,16 +240,18 @@ const EditProductScreen = (props) => {
               color: settings.mainColor,
             }}
           >
-            {settings.language === "eng" ? "Color" : "Цвет"}
+            {settings.language === "eng" ? "Battery power" : "Мощность батареи"}
           </Text>
-          <Picker
-            selectedValue={color}
-            onValueChange={(value) => setColor(value)}
-          >
-            {COLORS.map((color, index) => (
-              <Picker.Item label={color} value={color} key={index} />
-            ))}
-          </Picker>
+          <TextInput
+            style={{
+              ...styles.input,
+              fontSize: settings.sizeOfFont - 2,
+              color: settings.mainColor,
+            }}
+            value={battery}
+            onChangeText={(value) => setBattery(value)}
+            autoCapitalize="none"
+          />
           <Text
             style={{
               ...styles.label,

@@ -57,14 +57,14 @@ export default (state = initialState, action) => {
       const newShmot = new Shmot(
         action.id,
         action.ownerId,
-        action.title,
+        action.name,
+        action.description,
         action.imageUrls,
         action.videoUrl,
-        action.shmotType,
-        action.color,
-        action.description,
         action.price,
-        action.selectedLocation
+        action.weight,
+        action.battery,
+        action.selectedLocation,
       );
       return {
         ...state,
@@ -80,13 +80,13 @@ export default (state = initialState, action) => {
       const updatedShmot = new Shmot(
         action.shmotId,
         state.userShmot[shmotIndex].ownerId,
-        action.shmotData.title,
+        action.shmotData.name,
+        action.shmotData.description,
         action.shmotData.imageUrls,
         action.shmotData.videoUrl,
-        action.shmotData.shmotType,
-        action.shmotData.color,
-        action.shmotData.description,
         state.userShmot[shmotIndex].price,
+        action.shmotData.weight,
+        action.shmotData.battery,
         action.shmotData.selectedLocation
       );
       const updatedUserShmot = [...state.userShmot];

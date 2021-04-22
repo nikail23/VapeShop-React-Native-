@@ -68,25 +68,26 @@ function* FetchShmotAsync() {
     yield put(requestedShmotLoading());
     const response = yield call(async () => {
       const response = await fetch(
-        "https://rn-shmot-app-aafab-default-rtdb.firebaseio.com/shmot.json"
+        "https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes.json"
       );
       if (!response.ok) {
         throw new Error("Something went wrong if fetchProducts!");
       }
       const resData = await response.json();
+      console.log(resData);
       const loadedShmot = [];
       for (const key in resData) {
         loadedShmot.push(
           new Shmot(
             key,
             resData[key].ownerId,
-            resData[key].title,
+            resData[key].Name,
+            resData[key].Description,
             resData[key].imageUrls,
             resData[key].videoUrl,
-            resData[key].shmotType,
-            resData[key].color,
-            resData[key].description,
-            resData[key].price,
+            resData[key].Cost,
+            resData[key].Weight,
+            resData[key].BatteryPower,
             resData[key].selectedLocation
           )
         );
@@ -108,13 +109,13 @@ function* FetchShmotAsync() {
 
 function* CreateShmotAsync({
   title,
+  description,
   imageUrls,
   videoUrl,
-  shmotType,
-  color,
   selectedLocation,
   price,
-  description,
+  weight,
+  battery
 }) {
   try {
     yield put(requestedShmotLoading());
@@ -124,7 +125,7 @@ function* CreateShmotAsync({
     const response = yield call(async () => {
       loadedImageUrls = await uploadImages(imageUrls);
       const response = await fetch(
-        `https://rn-shmot-app-aafab-default-rtdb.firebaseio.com/shmot.json?auth=${token}`,
+        `https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes.json?auth=${token}`,
         {
           method: "POST",
           headers: {
@@ -134,12 +135,12 @@ function* CreateShmotAsync({
             title,
             imageUrls: loadedImageUrls,
             videoUrl,
-            shmotType,
-            color,
             selectedLocation,
             price,
             description,
             ownerId: userId,
+            weight,
+            battery
           }),
         }
       );
@@ -156,12 +157,12 @@ function* CreateShmotAsync({
         title,
         loadedImageUrls,
         videoUrl,
-        shmotType,
-        color,
         selectedLocation,
         price,
         description,
-        userId
+        userId,
+        weight,
+        battery
       )
     );
     yield put(setFilters());
@@ -175,9 +176,10 @@ function* UpdateShmotAsync({
   title,
   imageUrls,
   videoUrl,
-  shmotType,
-  color,
   selectedLocation,
+  price,
+  weight,
+  battery,
   description,
 }) {
   try {
@@ -187,7 +189,7 @@ function* UpdateShmotAsync({
     yield call(async () => {
       loadedImageUrls = await uploadImages(imageUrls);
       const response = await fetch(
-        `https://rn-shmot-app-aafab-default-rtdb.firebaseio.com/shmot/${id}.json?auth=${token}`,
+        `https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes/${id}.json?auth=${token}`,
         {
           method: "PATCH",
           headers: {
@@ -195,11 +197,12 @@ function* UpdateShmotAsync({
           },
           body: JSON.stringify({
             title,
+            description,
             imageUrls,
             videoUrl,
-            shmotType,
-            color,
-            description,
+            price,
+            weight,
+            battery,
             selectedLocation,
           }),
         }
@@ -212,11 +215,12 @@ function* UpdateShmotAsync({
     yield put(
       updateShmotSucceeded(id, {
         title,
+        description,
         imageUrls,
         videoUrl,
-        shmotType,
-        color,
-        description,
+        price,
+        weight,
+        battery,
         selectedLocation,
       })
     );
@@ -232,7 +236,7 @@ function* DeleteShmotAsync({ shmotId }) {
     const token = yield select(getToken);
     yield call(async () => {
       const response = await fetch(
-        `https://rn-shmot-app-aafab-default-rtdb.firebaseio.com/shmot/${shmotId}.json?auth=${token}`,
+        `https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes/${shmotId}.json?auth=${token}`,
         {
           method: "DELETE",
         }

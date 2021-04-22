@@ -38,22 +38,22 @@ export const createShmot = (
   title,
   imageUrls,
   videoUrl,
-  shmotType,
-  color,
   selectedLocation,
   price,
-  description
+  description,
+  weight,
+  battery
 ) => {
   return {
     type: CREATE_SHMOT,
     title,
     imageUrls,
     videoUrl,
-    shmotType,
-    color,
     selectedLocation,
     price,
     description,
+    weight,
+    battery
   };
 };
 
@@ -62,12 +62,12 @@ export const createShmotSucceeded = (
   title,
   imageUrls,
   videoUrl,
-  shmotType,
-  color,
   selectedLocation,
   price,
   description,
-  ownerId
+  ownerId,
+  weight,
+  battery
 ) => {
   return {
     type: CREATE_SHMOT_SUCCEEDED,
@@ -75,12 +75,12 @@ export const createShmotSucceeded = (
     title,
     imageUrls,
     videoUrl,
-    shmotType,
-    color,
     selectedLocation,
     price,
     description,
     ownerId,
+    weight,
+    battery
   };
 };
 
@@ -89,10 +89,10 @@ export const updateShmot = (
   title,
   imageUrls,
   videoUrl,
-  shmotType,
-  color,
   selectedLocation,
-  description
+  description,
+  weight,
+  battery
 ) => {
   return {
     type: UPDATE_SHMOT,
@@ -100,10 +100,10 @@ export const updateShmot = (
     title,
     imageUrls,
     videoUrl,
-    shmotType,
-    color,
     selectedLocation,
     description,
+    weight,
+    battery
   };
 };
 

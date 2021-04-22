@@ -17,7 +17,7 @@ const ShmotItem = (props) => {
             <Text
               style={{ ...styles.titleText, fontSize: settings.sizeOfFont + 2 }}
             >
-              {props.title}
+              {props.name}
             </Text>
           </View>
           <View style={styles.imageContainer}>
