@@ -38,7 +38,7 @@ const VapeItem = (props) => {
             <Text
               style={{ ...styles.priceText, fontSize: settings.sizeOfFont }}
             >
-              {props.price}$
+              {props.price} р.
             </Text>
           </View>
           <View style={styles.actions}>{props.children}</View>

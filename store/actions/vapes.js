@@ -91,6 +91,7 @@ export const updateVape = (
   imageUrls,
   videoUrl,
   selectedLocation,
+  price,
   description,
   weight,
   battery
@@ -102,6 +103,7 @@ export const updateVape = (
     imageUrls,
     videoUrl,
     selectedLocation,
+    price,
     description,
     weight,
     battery
