@@ -70,8 +70,8 @@ const FiltersScreen = (props) => {
         }}
       >
         {settings.language === "eng"
-          ? "Available Filters / Restrictions"
-          : "Доступные фильры"}
+          ? "Filters"
+          : "Фильтры"}
       </Text>
       <Text
         style={{
@@ -88,27 +88,12 @@ const FiltersScreen = (props) => {
           value={minPrice.toString()}
           onChangeText={(value) => setMinPrice(+value)}
         />
-        <Slider
-          style={{ width: 200, height: 40 }}
-          value={price}
-          onValueChange={(value) => setPrice(value.toFixed())}
-          minimumValue={minPrice}
-          maximumValue={maxPrice}
-          minimumTrackTintColor="black"
-          maximumTrackTintColor="blue"
-        />
         <TextInput
           style={{ ...styles.textInput, color: settings.mainColor }}
-          value={maxPrice.toString()}
-          onChangeText={(value) => setMaxPrice(+value)}
+          value={price.toString()}
+          onChangeText={(value) => setPrice(+value)}
         />
       </View>
-
-      <Text
-        style={{ fontSize: settings.sizeOfFont, color: settings.mainColor }}
-      >
-        {price}
-      </Text>
 
       <View style={{ width: "80%" }}>
         <Text
@@ -120,7 +105,7 @@ const FiltersScreen = (props) => {
         >
           {settings.language === "eng"
             ? "Min images count"
-            : "Минимальное количество фоток"}
+            : "Минимальное количество фото"}
         </Text>
         <Picker
           selectedValue={imagesCount}
@@ -133,23 +118,6 @@ const FiltersScreen = (props) => {
           <Picker.Item label="4+" value="4" key={4} />
         </Picker>
       </View>
-
-      <View style={styles.filterContainer}>
-        <Text
-          style={{
-            fontSize: settings.sizeOfFont,
-            color: settings.mainColor,
-          }}
-        >
-          {settings.language === "eng"
-            ? "Description (small/big)"
-            : "Описание (мал. / бол.)"}
-        </Text>
-        <Switch
-          value={descriptionSize}
-          onValueChange={(value) => setDescriptionSize(value)}
-        />
-      </View>
     </View>
   );
 };
@@ -161,6 +129,7 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     flexDirection: "row",
+    marginVertical: 15,
   },
   textInput: {
     textAlign: "center",

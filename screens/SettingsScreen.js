@@ -69,7 +69,7 @@ const SettingsScreen = (props) => {
       <Text
         style={{ ...styles.title, fontSize: sizeOfFont + 6, color: mainColor }}
       >
-        {language === "eng" ? "Available Settings" : "Доступные настройки"}
+        {language === "eng" ? "Settings" : "Настройки"}
       </Text>
       <Text style={{ fontSize: sizeOfFont, color: mainColor }}>
         {language === "eng" ? "Font Size" : "Размер шрифта"}
@@ -90,19 +90,11 @@ const SettingsScreen = (props) => {
         {sizeOfFont}
       </Text>
 
-      <Text style={{ fontSize: sizeOfFont, color: mainColor }}>
-        {language === "eng" ? "Background Color" : "Цвет фона"}
-      </Text>
-      <ColorPicker
-        onColorSelected={(color) => setBgColor(color)}
-        style={{ width: "90%", height: 200 }}
-      />
-
       <View style={{ width: "80%" }}>
         <Text
           style={{ ...styles.label, fontSize: sizeOfFont, color: mainColor }}
         >
-          {language === "eng" ? "Type" : "Тип"}
+          {language === "eng" ? "Language" : "Язык"}
         </Text>
         <Picker
           selectedValue={language}
@@ -140,35 +132,16 @@ const SettingsScreen = (props) => {
   );
 };
 
-// export const screenOptions = (navData) => {
-//   return {
-//     headerLeft: () => (
-//       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-//         <Item
-//           title="Menu"
-//           iconName="ios-menu"
-//           onPress={() => {
-//             navData.navigation.toggleDrawer();
-//           }}
-//         />
-//       </HeaderButtons>
-//     ),
-//   };
-// };
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
   },
-  //   label: {
-  //     fontSize: SizeOfFont,
-  //   },
   sliderContainer: {
     flexDirection: "row",
   },
   textInput: {
-    textAlign: "center",
+    textAlign: "left",
     borderBottomWidth: 1,
     width: 60,
   },
@@ -182,7 +155,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     margin: 20,
-    textAlign: "center",
+    textAlign: "left",
   },
 });
 
