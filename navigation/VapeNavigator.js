@@ -8,56 +8,56 @@ import { View, SafeAreaView, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as authActions from "../store/actions/auth";
 
-import ShmotsOverviewScreen from "../screens/ShmotOverviewScreen";
-import ShmotDetailScreen, {
-  screenOptions as shmotDetailScreenOptions,
-} from "../screens/ShmotDetailScreen";
+import VapesOverviewScreen from "../screens/VapeOverviewScreen";
+import VapeDetailScreen, {
+  screenOptions as vapeDetailScreenOptions,
+} from "../screens/VapeDetailScreen";
 import FiltersScreen from "../screens/FiltersScreen";
 import SettingsScreen, {
   screenOptions as settingsScreenOptions,
 } from "../screens/SettingsScreen";
-import UserShmotScreen from "../screens/UserShmotScreen";
-import EditShmotScreen from "../screens/EditShmotScreen";
+import UserVapeScreen from "../screens/UserVapeScreen";
+import EditVapeScreen from "../screens/EditVapeScreen";
 import MapScreen from "../screens/MapScreen";
 import AuthScreen, {
   screenOptions as authScreenOptions,
 } from "../screens/AuthScreen";
 
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeSelector from "../store/selectors/vapes";
 
-const ShmotsStackNavigator = createStackNavigator();
+const VapesStackNavigator = createStackNavigator();
 
-export const ShmotsNavigator = () => {
-  const settings = useSelector(shmotSelector.getSettings);
+export const VapesNavigator = () => {
+  const settings = useSelector(vapeSelector.getSettings);
   return (
-    <ShmotsStackNavigator.Navigator
+    <VapesStackNavigator.Navigator
       screenOptions={{
         headerTintColor: settings.darkmode ? "white" : "black",
       }}
     >
-      <ShmotsStackNavigator.Screen
-        name="ShmotsOverview"
-        component={ShmotsOverviewScreen}
+      <VapesStackNavigator.Screen
+        name="VapesOverview"
+        component={VapesOverviewScreen}
       />
-      <ShmotsStackNavigator.Screen
-        name="ShmotDetail"
-        component={ShmotDetailScreen}
-        options={shmotDetailScreenOptions}
+      <VapesStackNavigator.Screen
+        name="VapeDetail"
+        component={VapeDetailScreen}
+        options={vapeDetailScreenOptions}
       />
-      <ShmotsStackNavigator.Screen
-        name="EditShmot"
-        component={EditShmotScreen}
+      <VapesStackNavigator.Screen
+        name="EditVape"
+        component={EditVapeScreen}
       />
-      <ShmotsStackNavigator.Screen name="Map" component={MapScreen} />
-      <ShmotsStackNavigator.Screen name="Filters" component={FiltersScreen} />
-    </ShmotsStackNavigator.Navigator>
+      <VapesStackNavigator.Screen name="Map" component={MapScreen} />
+      <VapesStackNavigator.Screen name="Filters" component={FiltersScreen} />
+    </VapesStackNavigator.Navigator>
   );
 };
 
 const SettingsStackNavigator = createStackNavigator();
 
 export const SettingsNavigator = () => {
-  const settings = useSelector(shmotSelector.getSettings);
+  const settings = useSelector(vapeSelector.getSettings);
   return (
     <SettingsStackNavigator.Navigator
       screenOptions={{
@@ -76,7 +76,7 @@ export const SettingsNavigator = () => {
 const AdminStackNavigator = createStackNavigator();
 
 export const AdminNavigator = () => {
-  const settings = useSelector(shmotSelector.getSettings);
+  const settings = useSelector(vapeSelector.getSettings);
   return (
     <AdminStackNavigator.Navigator
       screenOptions={{
@@ -84,14 +84,14 @@ export const AdminNavigator = () => {
       }}
     >
       <AdminStackNavigator.Screen
-        name="userShmot"
-        component={UserShmotScreen}
+        name="userVape"
+        component={UserVapeScreen}
       />
       <AdminStackNavigator.Screen
-        name="EditShmot"
-        component={EditShmotScreen}
+        name="EditVape"
+        component={EditVapeScreen}
       />
-      <ShmotsStackNavigator.Screen name="Map" component={MapScreen} />
+      <VapesStackNavigator.Screen name="Map" component={MapScreen} />
     </AdminStackNavigator.Navigator>
   );
 };
@@ -110,13 +110,13 @@ export const AuthNavigator = () => {
   );
 };
 
-const ShmotAppDrawerNavigator = createDrawerNavigator();
+const VapeAppDrawerNavigator = createDrawerNavigator();
 
-export const ShmotAppNavigator = (props) => {
-  const settings = useSelector(shmotSelector.getSettings);
+export const VapeAppNavigator = (props) => {
+  const settings = useSelector(vapeSelector.getSettings);
   const dispatch = useDispatch();
   return (
-    <ShmotAppDrawerNavigator.Navigator
+    <VapeAppDrawerNavigator.Navigator
       drawerContentOptions={{
         activeTintColor: settings.darkmode ? "white" : "#0098F4",
         inactiveTintColor: settings.darkmode ? "white" : "#0098F4",
@@ -140,17 +140,20 @@ export const ShmotAppNavigator = (props) => {
         );
       }}
     >
-      <ShmotAppDrawerNavigator.Screen
-        name="Shmot"
-        component={ShmotsNavigator}
+      <VapeAppDrawerNavigator.Screen
+        name="Vapes"
+        component={VapesNavigator}
       />
-      <ShmotAppDrawerNavigator.Screen
+      <VapeAppDrawerNavigator.Screen
         name="Settings"
         component={SettingsNavigator}
       />
-      <ShmotAppDrawerNavigator.Screen name="Admin" component={AdminNavigator} />
-    </ShmotAppDrawerNavigator.Navigator>
+      <VapeAppDrawerNavigator.Screen 
+        name="Change catalog" 
+        component={AdminNavigator} 
+      />
+    </VapeAppDrawerNavigator.Navigator>
   );
 };
 
-export default ShmotAppNavigator;
+export default VapeAppNavigator;

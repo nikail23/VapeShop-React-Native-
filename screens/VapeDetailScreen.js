@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -7,21 +7,20 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { Video } from "expo-av";
 import ViewPager from "@react-native-community/viewpager";
 import { useSelector } from "react-redux";
 
 import MapPreview from "../components/UI/MapPreview";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeSelector from "../store/selectors/vapes";
 
-const ShmotDetailScreen = (props) => {
-  const shmotId = props.route.params.shmotId;
-  const selectedShmot = useSelector(shmotSelector.getShmotById(shmotId));
-  const settings = useSelector(shmotSelector.getSettings);
+const VapeDetailScreen = (props) => {
+  const vapeId = props.route.params.vapeId;
+  const selectedVape = useSelector(vapeSelector.getVapeById(vapeId));
+  const settings = useSelector(vapeSelector.getSettings);
 
   const selectedLocation = {
-    lat: selectedShmot.location.lat,
-    lng: selectedShmot.location.lng,
+    lat: selectedVape.location.lat,
+    lng: selectedVape.location.lng,
   };
 
   const showMapHandler = () => {
@@ -42,8 +41,17 @@ const ShmotDetailScreen = (props) => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: settings.bgColor }}>
       <View>
+        <Text
+            style={{
+              ...styles.name,
+              fontSize: settings.sizeOfFont + 4,
+              color: settings.mainColor,
+            }}
+          >
+          {selectedVape.name}
+        </Text>
         <ViewPager style={styles.viewPager} initialPage={0}>
-          {selectedShmot.imageUrls.map((imageUrl, index) => (
+          {selectedVape.imageUrls.map((imageUrl, index) => (
             <View style={styles.page} key={index}>
               <Image
                 style={styles.image}
@@ -52,17 +60,6 @@ const ShmotDetailScreen = (props) => {
               />
             </View>
           ))}
-          <View style={styles.container} key="video">
-            <Video
-              style={styles.video}
-              source={{
-                uri: selectedShmot.videoUrl,
-              }}
-              useNativeControls
-              resizeMode="contain"
-              isLooping
-            />
-          </View>
         </ViewPager>
         <View style={styles.mapPreviewContainer}>
           <MapPreview
@@ -79,7 +76,7 @@ const ShmotDetailScreen = (props) => {
             color: settings.mainColor,
           }}
         >
-          ${selectedShmot.price.toFixed(2)}
+          ${selectedVape.price.toFixed(2)}
         </Text>
         <Text
           style={{
@@ -88,7 +85,7 @@ const ShmotDetailScreen = (props) => {
             color: settings.mainColor,
           }}
         >
-          {selectedShmot.description}
+          {selectedVape.description}
         </Text>
       </View>
     </ScrollView>
@@ -97,11 +94,16 @@ const ShmotDetailScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerTitle: navData.route.params.shmotTitle,
+    headerTitle: "Vape details",
   };
 };
 
 const styles = StyleSheet.create({
+  name: {
+    fontSize: 18,
+    color: "#888",
+    textAlign: "center",
+  },
   viewPager: {
     flex: 1,
     height: 500,
@@ -122,14 +124,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
   },
-  video: {
-    alignSelf: "center",
-    width: "100%",
-    height: "100%",
-  },
   mapPreviewContainer: {
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 10,
     overflow: "hidden",
   },
   mapPreview: {
@@ -140,7 +137,7 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 10,
   },
   price: {
     color: "#888",
@@ -149,8 +146,8 @@ const styles = StyleSheet.create({
   description: {
     textAlign: "center",
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 10,
   },
 });
 
-export default ShmotDetailScreen;
+export default VapeDetailScreen;

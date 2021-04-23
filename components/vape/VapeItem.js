@@ -7,12 +7,12 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 
-const ShmotItem = (props) => {
+const VapeItem = (props) => {
   const settings = props.settings;
   return (
     <View style={styles.touchable}>
       <TouchableNativeFeedback onPress={props.onSelect} useForeground>
-        <View style={{...styles.shmotContainer, height: 400 + (settings.sizeOfFont - 16) * 10}}>
+        <View style={{...styles.vapeContainer, height: 400 + (settings.sizeOfFont - 16) * 10}}>
           <View style={styles.title}>
             <Text
               style={{ ...styles.titleText, fontSize: settings.sizeOfFont + 2 }}
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     margin: 5,
     elevation: 5,
   },
-  shmotContainer: {
+  vapeContainer: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShmotItem;
+export default VapeItem;

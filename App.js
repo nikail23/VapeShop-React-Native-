@@ -6,14 +6,14 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
 
 import AppNavigator from "./navigation/AppNavigator";
-import shmotReducer from "./store/reducers/shmot";
+import vapeReducer from "./store/reducers/vapes";
 import authReducer from "./store/reducers/auth";
 // import cartReducer from "./store/reducers/cart";
 // import ordersReducer from "./store/reducers/orders";
 import rootSaga from "./store/sagas/rootSaga";
 
 const rootReducer = combineReducers({
-  shmot: shmotReducer,
+  vape: vapeReducer,
   // cart: cartReducer,
   // orders: ordersReducer,
   auth: authReducer,

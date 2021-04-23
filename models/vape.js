@@ -1,4 +1,4 @@
-class Shmot {
+class Vape {
   constructor(id, ownerId, name, description, imageUrls, videoUrl, price, weight, battery, location) {
     this.id = id;
     this.ownerId = ownerId;
@@ -13,4 +13,4 @@ class Shmot {
   }
 }
 
-export default Shmot;
+export default Vape;

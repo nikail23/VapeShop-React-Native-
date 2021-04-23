@@ -12,19 +12,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import HeaderButton from "../components/UI/HeaderButton";
-import ShmotItem from "../components/shmot/ShmotItem";
-import * as shmotActions from "../store/actions/shmot";
-import * as shmotSelector from "../store/selectors/shmot";
+import VapeItem from "../components/vape/VapeItem";
+import * as vapeActions from "../store/actions/vapes";
+import * as vapeSelector from "../store/selectors/vapes";
 
 const UserProductsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const userShmot = useSelector(shmotSelector.getUserShmot);
-  const settings = useSelector(shmotSelector.getSettings);
+  const userVape = useSelector(vapeSelector.getUserVape);
+  const settings = useSelector(vapeSelector.getSettings);
   const dispatch = useDispatch();
 
-  const editShmotHandler = (id, location) => {
-    props.navigation.navigate("EditShmot", {
-      shmotId: id,
+  const editVapeHandler = (id, location) => {
+    props.navigation.navigate("EditVape", {
+      vapeId: id,
       pickedLocation: location,
     });
   };
@@ -37,7 +37,7 @@ const UserProductsScreen = (props) => {
         style: "destructive",
         onPress: async () => {
           setIsLoading(true);
-          dispatch(shmotActions.deleteShmot(id));
+          dispatch(vapeActions.deleteVape(id));
           setIsLoading(false);
         },
       },
@@ -46,7 +46,7 @@ const UserProductsScreen = (props) => {
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerTitle: settings.language === "eng" ? "Your Shmot" : "Твой Шмот",
+      headerTitle: settings.language === "eng" ? "Your Vapes" : "Твои вейпы",
       headerStyle: {
         backgroundColor: settings.bgColor,
       },
@@ -69,7 +69,7 @@ const UserProductsScreen = (props) => {
             iconName="md-create"
             newColor={settings.mainColor}
             onPress={() => {
-              props.navigation.navigate("EditShmot");
+              props.navigation.navigate("EditVape");
             }}
           />
         </HeaderButtons>
@@ -85,10 +85,10 @@ const UserProductsScreen = (props) => {
     );
   }
 
-  if (userShmot.length === 0) {
+  if (userVape.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>No shmot found, maybe start adding some?</Text>
+        <Text>No vapes found, maybe start adding some?</Text>
       </View>
     );
   }
@@ -96,24 +96,24 @@ const UserProductsScreen = (props) => {
   return (
     <FlatList
       style={{ backgroundColor: settings.bgColor }}
-      data={userShmot}
+      data={userVape}
       keyExtractor={(item) => item.id}
       renderItem={(itemData) => (
-        <ShmotItem
+        <VapeItem
           image={itemData.item.imageUrls[0]}
           title={itemData.item.title}
           price={itemData.item.price}
           description={itemData.item.description}
           settings={settings}
           onSelect={() => {
-            editShmotHandler(itemData.item.id, itemData.item.location);
+            editVapeHandler(itemData.item.id, itemData.item.location);
           }}
         >
           <View style={styles.buttonContainer}>
             <Button
               title="Edit"
               onPress={() => {
-                editShmotHandler(itemData.item.id);
+                editVapeHandler(itemData.item.id);
               }}
             />
             <Button
@@ -121,7 +121,7 @@ const UserProductsScreen = (props) => {
               onPress={deleteHandler.bind(this, itemData.item.id)}
             />
           </View>
-        </ShmotItem>
+        </VapeItem>
       )}
     />
   );

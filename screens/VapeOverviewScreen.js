@@ -3,43 +3,43 @@ import { FlatList, ActivityIndicator, View, Text, Button } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import ShmotItem from "../components/shmot/ShmotItem";
+import VapeItem from "../components/vape/VapeItem";
 import HeaderButton from "../components/UI/HeaderButton";
-import * as shmotActions from "../store/actions/shmot";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeActions from "../store/actions/vapes";
+import * as vapeSelector from "../store/selectors/vapes";
 
-const ShmotOverviewScreen = (props) => {
+const VapeOverviewScreen = (props) => {
   const dispatch = useDispatch();
-  const shmot = useSelector(shmotSelector.getFilteredShmot);
-  const shmotLoading = useSelector(shmotSelector.getLoading);
-  const settings = useSelector(shmotSelector.getSettings);
+  const vape = useSelector(vapeSelector.getFilteredVape);
+  const vapeLoading = useSelector(vapeSelector.getLoading);
+  const settings = useSelector(vapeSelector.getSettings);
 
-  const loadShmot = () => {
-    dispatch(shmotActions.fetchShmot());
+  const loadVape = () => {
+    dispatch(vapeActions.fetchVape());
   };
 
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener("focus", loadShmot);
+    const unsubscribe = props.navigation.addListener("focus", loadVape);
 
     return () => {
       unsubscribe();
     };
-  }, [loadShmot]);
+  }, [loadVape]);
 
   useEffect(() => {
-    loadShmot();
+    loadVape();
   }, [dispatch]);
 
-  const selectShmotHandler = (id, title) => {
-    props.navigation.navigate("ShmotDetail", {
-      shmotId: id,
-      shmotTitle: title,
+  const selectVapeHandler = (id, title) => {
+    props.navigation.navigate("VapeDetail", {
+      vapeId: id,
+      vapeTitle: title,
     });
   };
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerTitle: settings.language === "eng" ? "All Shmot" : "Весь Шмот",
+      headerTitle: settings.language === "eng" ? "All Vapes" : "Все вейпы",
       headerStyle: {
         backgroundColor: settings.bgColor,
       },
@@ -70,7 +70,7 @@ const ShmotOverviewScreen = (props) => {
     });
   }, [settings]);
 
-  if (shmotLoading && shmot.length === 0) {
+  if (vapeLoading && vape.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color="black" />
@@ -78,35 +78,35 @@ const ShmotOverviewScreen = (props) => {
     );
   }
 
-  if (!shmotLoading && shmot.length === 0) {
+  if (!vapeLoading && vape.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>No Shmot!</Text>
-        <Button title="Reload" onPress={loadShmot} />
+        <Text>No Vapes!</Text>
+        <Button title="Reload" onPress={loadVape} />
       </View>
     );
   }
   return (
     <FlatList
       style={{ backgroundColor: settings.bgColor }}
-      onRefresh={loadShmot}
+      onRefresh={loadVape}
       refreshing={false}
-      data={shmot}
+      data={vape}
       renderItem={(itemData) => (
-        <ShmotItem
+        <VapeItem
           name={itemData.item.name}
           image={itemData.item.imageUrls[0]}
           description={itemData.item.description}
           price={itemData.item.price}
           settings={settings}
           onSelect={() =>
-            selectShmotHandler(itemData.item.id, itemData.item.title)
+            selectVapeHandler(itemData.item.id, itemData.item.title)
           }
-        ></ShmotItem>
+        ></VapeItem>
       )}
       numColumns={2} 
     />
   );
 };
 
-export default ShmotOverviewScreen;
+export default VapeOverviewScreen;

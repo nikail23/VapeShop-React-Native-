@@ -7,11 +7,11 @@ import { Picker } from "@react-native-picker/picker";
 import Slider from "@react-native-community/slider";
 import { ColorPicker } from "react-native-color-picker";
 import HeaderButton from "../components/UI/HeaderButton";
-import * as shmotActions from "../store/actions/shmot";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeActions from "../store/actions/vapes";
+import * as vapeSelector from "../store/selectors/vapes";
 
 const SettingsScreen = (props) => {
-  let settings = useSelector(shmotSelector.getSettings);
+  let settings = useSelector(vapeSelector.getSettings);
 
   const [sizeOfFont, setFontSize] = useState(settings.sizeOfFont);
   const [mainColor, setMainColor] = useState(settings.mainColor);
@@ -22,7 +22,7 @@ const SettingsScreen = (props) => {
 
   const saveFilters = useCallback(() => {
     dispatch(
-      shmotActions.setSettings({
+      vapeActions.setSettings({
         sizeOfFont,
         mainColor,
         bgColor,

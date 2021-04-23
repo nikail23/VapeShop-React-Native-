@@ -11,45 +11,44 @@ import {
   TouchableHighlight,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { Picker } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
 
 import HeaderButton from "../components/UI/HeaderButton";
 import LocationPicker from "../components/UI/LocationPicker";
-import * as shmotActions from "../store/actions/shmot";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeActions from "../store/actions/vapes";
+import * as vapeSelector from "../store/selectors/vapes";
 
 const EditProductScreen = (props) => {
-  const shmotId = props.route.params ? props.route.params.shmotId : null;
-  const editedShmot = useSelector(shmotSelector.getShmotById(shmotId));
-  const settings = useSelector(shmotSelector.getSettings);
+  const vapeId = props.route.params ? props.route.params.vapeId : null;
+  const editedVape = useSelector(vapeSelector.getVapeById(vapeId));
+  const settings = useSelector(vapeSelector.getSettings);
   const dispatch = useDispatch();
 
   let pickedLocation = props.route?.params?.pickedLocation
     ? props.route.params.pickedLocation
     : null;
 
-  const [name, setName] = useState(editedShmot ? editedShmot.name : "");
+  const [name, setName] = useState(editedVape ? editedVape.name : "");
 
   const [imageUrls, setImageUrls] = useState(
-    editedShmot ? editedShmot.imageUrls : []
+    editedVape ? editedVape.imageUrls : []
   );
   const [videoUrl, setVideoUrl] = useState(
-    editedShmot ? editedShmot.videoUrl : ""
+    editedVape ? editedVape.videoUrl : ""
   );
   const [selectedLocation, setSelectedLocation] = useState(
-    editedShmot ? editedShmot.location : ""
+    editedVape ? editedVape.location : ""
   );
-  const [price, setPrice] = useState(editedShmot ? editedShmot.price.toString() : "");
+  const [price, setPrice] = useState(editedVape ? editedVape.price.toString() : "");
   const [description, setDescription] = useState(
-    editedShmot ? editedShmot.description : ""
+    editedVape ? editedVape.description : ""
   );
-  const [weight, setWeight] = useState(editedShmot ? editedShmot.weight.toString() : "");
-  const [battery, setBattery] = useState(editedShmot ? editedShmot.battery.toString() : "");
+  const [weight, setWeight] = useState(editedVape ? editedVape.weight.toString() : "");
+  const [battery, setBattery] = useState(editedVape ? editedVape.battery.toString() : "");
 
-  console.log(editedShmot);
+  console.log(editedVape);
 
   const locationPickedHandler = useCallback((location) => {
     setSelectedLocation(location);
@@ -57,22 +56,23 @@ const EditProductScreen = (props) => {
 
   const submitHandler = async () => {
     try {
-      if (editedShmot) {
+      if (editedVape) {
         await dispatch(
-          shmotActions.updateShmot(
-            shmotId,
+          vapeActions.updateVape(
+            vapeId,
             name,
             imageUrls,
             videoUrl,
             selectedLocation,
+            +price,
             description,
-            weight,
-            battery
+            +weight,
+            +battery
           )
         );
       } else {
         await dispatch(
-          shmotActions.createShmot(
+          vapeActions.createVape(
             name,
             imageUrls,
             videoUrl,
@@ -122,13 +122,13 @@ const EditProductScreen = (props) => {
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerTitle: shmotId
+      headerTitle: vapeId
         ? settings.language === "eng"
-          ? "Edit Shmot"
-          : "Редактируй Шмот"
+          ? "Edit Vape"
+          : "Изменение вейпа"
         : settings.language === "eng"
-        ? "Add Shmot"
-        : "Добавляй Шмот",
+        ? "Add Vape"
+        : "Добавление вейпа",
       headerStyle: {
         backgroundColor: settings.bgColor,
       },
@@ -287,7 +287,7 @@ const EditProductScreen = (props) => {
             pickedLocation={pickedLocation}
             onLocationPicked={locationPickedHandler}
           />
-          {editedShmot ? null : (
+          {editedVape ? null : (
             <View>
               <Text
                 style={{

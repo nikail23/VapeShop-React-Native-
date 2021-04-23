@@ -1,18 +1,18 @@
-import Shmot from "../../models/shmot";
+import Vape from "../../models/vape";
 import { select, call, put, takeEvery } from "redux-saga/effects";
 
 import {
-  requestedShmotLoading,
-  FETCH_SHMOT,
-  fetchShmotSucceeded,
-  CREATE_SHMOT,
-  createShmotSucceeded,
-  UPDATE_SHMOT,
-  updateShmotSucceeded,
-  DELETE_SHMOT,
-  deleteShmotSucceeded,
+  requestedVapeLoading,
+  FETCH_VAPE,
+  fetchVapeSucceeded,
+  CREATE_VAPE,
+  createVapeSucceeded,
+  UPDATE_VAPE,
+  updateVapeSucceeded,
+  DELETE_VAPE,
+  deleteVapeSucceeded,
   setFilters,
-} from "../actions/shmot";
+} from "../actions/vapes";
 
 import firebase from "firebase";
 import ENV from "../../env";
@@ -47,25 +47,25 @@ const uploadImages = async (uriArray) => {
 const getUserId = (state) => state.auth.userId;
 const getToken = (state) => state.auth.token;
 
-export function* watchFetchShmot() {
-  yield takeEvery(FETCH_SHMOT, FetchShmotAsync);
+export function* watchFetchVape() {
+  yield takeEvery(FETCH_VAPE, FetchVapeAsync);
 }
 
-export function* watchCreateShmot() {
-  yield takeEvery(CREATE_SHMOT, CreateShmotAsync);
+export function* watchCreateVape() {
+  yield takeEvery(CREATE_VAPE, CreateVapeAsync);
 }
 
-export function* watcUpdateShmot() {
-  yield takeEvery(UPDATE_SHMOT, UpdateShmotAsync);
+export function* watcUpdateVape() {
+  yield takeEvery(UPDATE_VAPE, UpdateVapeAsync);
 }
 
-export function* watchDeleteShmot() {
-  yield takeEvery(DELETE_SHMOT, DeleteShmotAsync);
+export function* watchDeleteVape() {
+  yield takeEvery(DELETE_VAPE, DeleteVapeAsync);
 }
 
-function* FetchShmotAsync() {
+function* FetchVapeAsync() {
   try {
-    yield put(requestedShmotLoading());
+    yield put(requestedVapeLoading());
     const response = yield call(async () => {
       const response = await fetch(
         "https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes.json"
@@ -74,10 +74,10 @@ function* FetchShmotAsync() {
         throw new Error("Something went wrong if fetchProducts!");
       }
       const resData = await response.json();
-      const loadedShmot = [];
+      const loadedVape = [];
       for (const key in resData) {
-        loadedShmot.push(
-          new Shmot(
+        loadedVape.push(
+          new Vape(
             key,
             resData[key].OwnerId,
             resData[key].Name,
@@ -91,13 +91,13 @@ function* FetchShmotAsync() {
           )
         );
       }
-      return loadedShmot;
+      return loadedVape;
     });
     const userId = yield select(getUserId);
     yield put(
-      fetchShmotSucceeded(
+      fetchVapeSucceeded(
         response,
-        response.filter((shmot) => shmot.ownerId === userId)
+        response.filter((vape) => vape.ownerId === userId)
       )
     );
     yield put(setFilters());
@@ -106,7 +106,7 @@ function* FetchShmotAsync() {
   }
 }
 
-function* CreateShmotAsync({
+function* CreateVapeAsync({
   name,
   description,
   imageUrls,
@@ -117,7 +117,7 @@ function* CreateShmotAsync({
   battery
 }) {
   try {
-    yield put(requestedShmotLoading());
+    yield put(requestedVapeLoading());
     const token = yield select(getToken);
     const userId = yield select(getUserId);
     let loadedImageUrls;
@@ -151,7 +151,7 @@ function* CreateShmotAsync({
       return await response.json();
     });
     yield put(
-      createShmotSucceeded(
+      createVapeSucceeded(
         response.name,
         name,
         loadedImageUrls,
@@ -170,7 +170,7 @@ function* CreateShmotAsync({
   }
 }
 
-function* UpdateShmotAsync({
+function* UpdateVapeAsync({
   id,
   name,
   imageUrls,
@@ -182,7 +182,7 @@ function* UpdateShmotAsync({
   description,
 }) {
   try {
-    yield put(requestedShmotLoading());
+    yield put(requestedVapeLoading());
     const token = yield select(getToken);
     let loadedImageUrls;
     yield call(async () => {
@@ -212,7 +212,7 @@ function* UpdateShmotAsync({
     });
 
     yield put(
-      updateShmotSucceeded(id, {
+      updateVapeSucceeded(id, {
         name,
         description,
         imageUrls,
@@ -229,13 +229,13 @@ function* UpdateShmotAsync({
   }
 }
 
-function* DeleteShmotAsync({ shmotId }) {
+function* DeleteVapeAsync({ vapeId: vapeId }) {
   try {
-    yield put(requestedShmotLoading());
+    yield put(requestedVapeLoading());
     const token = yield select(getToken);
     yield call(async () => {
       const response = await fetch(
-        `https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes/${shmotId}.json?auth=${token}`,
+        `https://vapeshop-3a628-default-rtdb.firebaseio.com/Vapes/${vapeId}.json?auth=${token}`,
         {
           method: "DELETE",
         }
@@ -244,7 +244,7 @@ function* DeleteShmotAsync({ shmotId }) {
         throw new Error("Something went wrong!");
       }
     });
-    yield put(deleteShmotSucceeded(shmotId));
+    yield put(deleteVapeSucceeded(vapeId));
     yield put(setFilters());
   } catch (err) {
     console.log(err);

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { ShmotAppNavigator, AuthNavigator } from "./ShmotNavigator";
+import { VapeAppNavigator, AuthNavigator } from "./VapeNavigator";
 import StartupScreen from "../screens/StartupScreen";
 import * as authSelector from "../store/selectors/auth";
 
@@ -12,7 +12,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer>
-      {isAuth && <ShmotAppNavigator />}
+      {isAuth && <VapeAppNavigator />}
       {!isAuth && didTryAutoLogin && <AuthNavigator />}
       {!isAuth && !didTryAutoLogin && <StartupScreen />}
     </NavigationContainer>

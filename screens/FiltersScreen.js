@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Picker } from "@react-native-picker/picker";
 import Slider from "@react-native-community/slider";
 import HeaderButton from "../components/UI/HeaderButton";
-import * as shmotActions from "../store/actions/shmot";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeActions from "../store/actions/vapes";
+import * as vapeSelector from "../store/selectors/vapes";
 
 const FiltersScreen = (props) => {
-  const filters = useSelector(shmotSelector.getShmotFilters);
-  const settings = useSelector(shmotSelector.getSettings);
+  const filters = useSelector(vapeSelector.getVapeFilters);
+  const settings = useSelector(vapeSelector.getSettings);
 
   const [price, setPrice] = useState(+filters.price);
   const [minPrice, setMinPrice] = useState(filters.minPrice);
@@ -25,7 +25,7 @@ const FiltersScreen = (props) => {
 
   const saveFilters = useCallback(() => {
     dispatch(
-      shmotActions.setFilters({
+      vapeActions.setFilters({
         minPrice,
         price,
         imagesCount,
@@ -43,7 +43,7 @@ const FiltersScreen = (props) => {
   useEffect(() => {
     props.navigation.setOptions({
       headerTitle:
-        settings.language === "eng" ? "Filter Shmot" : "Фильры Шмота",
+        settings.language === "eng" ? "Filters" : "Фильтры",
       headerStyle: {
         backgroundColor: settings.bgColor,
       },

@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
-import * as shmotSelector from "../store/selectors/shmot";
+import * as vapeSelector from "../store/selectors/vapes";
 
 const MapScreen = (props) => {
-  const settings = useSelector(shmotSelector.getSettings);
+  const settings = useSelector(vapeSelector.getSettings);
   const initialLocation = props.route.params
     ? props.route.params.initialLocation
     : null;
@@ -37,7 +37,7 @@ const MapScreen = (props) => {
       // could show an alert!
       return;
     }
-    props.navigation.navigate("EditShmot", {
+    props.navigation.navigate("EditVape", {
       pickedLocation: selectedLocation,
     });
   }, [selectedLocation]);
