@@ -62,6 +62,15 @@ const VapeDetailScreen = (props) => {
           ))}
         </ViewPager>
         <View style={styles.mapPreviewContainer}>
+        <Text
+          style={{
+            ...styles.wasCreated,
+            fontSize: settings.sizeOfFont + 4,
+            color: settings.mainColor,
+          }}
+        >
+          Был создан в ...
+        </Text>
           <MapPreview
             style={styles.mapPreview}
             location={selectedLocation}
@@ -76,7 +85,7 @@ const VapeDetailScreen = (props) => {
             color: settings.mainColor,
           }}
         >
-          ${selectedVape.price.toFixed(2)}
+          {selectedVape.price} р.
         </Text>
         <Text
           style={{
@@ -85,7 +94,25 @@ const VapeDetailScreen = (props) => {
             color: settings.mainColor,
           }}
         >
-          {selectedVape.description}
+          Мощность батареи - {selectedVape.battery} мАч
+        </Text>
+        <Text
+          style={{
+            ...styles.description,
+            fontSize: settings.sizeOfFont,
+            color: settings.mainColor,
+          }}
+        >
+          Вес - {selectedVape.weight} г.
+        </Text>
+        <Text
+          style={{
+            ...styles.description,
+            fontSize: settings.sizeOfFont,
+            color: settings.mainColor,
+          }}
+        >
+          Описание: {selectedVape.description}
         </Text>
       </View>
     </ScrollView>
@@ -100,13 +127,15 @@ export const screenOptions = (navData) => {
 
 const styles = StyleSheet.create({
   name: {
+    margin: 10,
     fontSize: 18,
     color: "#888",
     textAlign: "center",
+    fontWeight: "bold",
   },
   viewPager: {
     flex: 1,
-    height: 500,
+    height: 200,
   },
   page: {
     alignItems: "center",
@@ -118,6 +147,10 @@ const styles = StyleSheet.create({
   actions: {
     marginVertical: 10,
     alignItems: "center",
+  },
+  wasCreated: {
+    color: "#888",
+    textAlign: "center",
   },
   container: {
     flex: 1,
@@ -142,9 +175,10 @@ const styles = StyleSheet.create({
   price: {
     color: "#888",
     textAlign: "center",
+    fontWeight: "bold",
   },
   description: {
-    textAlign: "center",
+    textAlign: "left",
     marginHorizontal: 20,
     marginVertical: 10,
   },

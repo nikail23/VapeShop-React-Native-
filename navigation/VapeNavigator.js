@@ -118,8 +118,8 @@ export const VapeAppNavigator = (props) => {
   return (
     <VapeAppDrawerNavigator.Navigator
       drawerContentOptions={{
-        activeTintColor: settings.darkmode ? "white" : "#0098F4",
-        inactiveTintColor: settings.darkmode ? "white" : "#0098F4",
+        activeTintColor: settings.darkmode ? "white" : "black",
+        inactiveTintColor: settings.darkmode ? "white" : "black",
       }}
       drawerStyle={{
         backgroundColor: settings.bgColor,
@@ -129,13 +129,15 @@ export const VapeAppNavigator = (props) => {
           <View style={{ flex: 1, paddingTop: 20 }}>
             <SafeAreaView forceInset={{ top: "always", horizontal: "never" }}>
               <DrawerItemList {...props} />
+            </SafeAreaView>
+            <View style={{ marginTop: 540 }}>
               <Button
-                title="Logout"
+                title="Log out"
                 onPress={() => {
                   dispatch(authActions.logout());
                 }}
               />
-            </SafeAreaView>
+            </View>
           </View>
         );
       }}

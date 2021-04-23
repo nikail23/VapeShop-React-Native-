@@ -36,7 +36,7 @@ const VapeItem = (props) => {
           </View>
           <View style={styles.price}>
             <Text
-              style={{ ...styles.priceText, fontSize: settings.sizeOfFont }}
+              style={{ ...styles.price, fontSize: settings.sizeOfFont }}
             >
               {props.price} р.
             </Text>
@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    borderBottomWidth: 1,
     marginVertical: 10,
   },
   titleText: {
+    fontWeight: "bold",
     marginVertical: 2,
   },
   imageContainer: {
@@ -86,9 +86,9 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   price: {
-    // height: 500,
     color: "#888",
     textAlign: "center",
+    fontWeight: "bold",
   },
   actions: {
     position: "absolute",

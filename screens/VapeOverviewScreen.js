@@ -104,7 +104,7 @@ const VapeOverviewScreen = (props) => {
           }
         ></VapeItem>
       )}
-      numColumns={2} 
+      numColumns={1} 
     />
   );
 };

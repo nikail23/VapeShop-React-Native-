@@ -66,7 +66,7 @@ const UserProductsScreen = (props) => {
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
           <Item
             title="Add"
-            iconName="md-create"
+            iconName="md-add"
             newColor={settings.mainColor}
             onPress={() => {
               props.navigation.navigate("EditVape");
@@ -115,10 +115,12 @@ const UserProductsScreen = (props) => {
               onPress={() => {
                 editVapeHandler(itemData.item.id);
               }}
+              color="blue"
             />
             <Button
               title="Delete"
               onPress={deleteHandler.bind(this, itemData.item.id)}
+              color="red"
             />
           </View>
         </VapeItem>
